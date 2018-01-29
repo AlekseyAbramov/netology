@@ -49,3 +49,15 @@ foreach ($a as $continent => $animals) {
 }
 echo '<pre>';
 print_r($new_a);
+foreach ($new_a as $v) {
+    $word = str_word_count($v, 1);
+    $descript[] = $word[0];
+    $title[] = $word[1];
+}
+shuffle($descript);
+shuffle($title);
+for ($i = 0; $i<count($title); $i++) {
+    $fantasy[] = $descript[$i]. " $title[$i]";
+}
+echo '<pre>';
+print_r($fantasy);

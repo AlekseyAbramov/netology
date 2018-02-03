@@ -54,6 +54,7 @@ print_r($new_a);
 
 $keys = array_keys($descript);
 shuffle($keys);
+$descript1 = [];
 foreach ($keys as $key) {
     $descript1[$key] = $descript[$key];
 }

@@ -32,36 +32,42 @@ $a = [
         'Zesty Zapus',
     ]
 ];
+$i = 0;
 foreach ($a as $continent => $animals) {
     foreach ($animals as $animal) {
         $word_summ = str_word_count($animal);
         if ($word_summ == 2) {
-            $new_a[] = "$continent". " $animal";
+            $new_a["$continent"." $i"] = " $animal";
+            $i = $i + 1;
         }
     }
 }
 echo '<pre>';
 print_r($new_a);
-foreach ($new_a as $v) {
+foreach ($new_a as $continent => $v) {
     $word = str_word_count($v, 1);
-    if (count($word) == 3) {
-    $descript[] = "$word[0]". " $word[1]";
-    $title[] = $word[2];}
- else {
-    $descript[] = "$word[0]". " $word[1]". " $word[2]" ;
-    $title[] = $word[3];}   
+    $descript[$continent] = "$word[0]";
+    $title[] = $word[1];   
 }
-shuffle($descript);
+
+$keys = array_keys($descript);
+shuffle($keys);
+foreach ($keys as $key) {
+    $descript1[$key] = $descript[$key];
+}
 shuffle($title);
-for ($i = 0; $i<count($title); $i++) {
-    $fantasy[] = $descript[$i]. " $title[$i]";
-    $word = str_word_count($fantasy[$i], 1);
-    if (count($word) == 3) {
-        $fantasy_anymals["$word[0]"][] = "$word[1]". " $word[2]";
-    }
-    else { 
-       $fantasy_anymals["$word[0]". " $word[1]"][] = "$word[2]". " $word[3]";
-    }
+
+$n = 0;
+
+foreach ($descript1 as $continent => $animal) {
+   $cont = explode(' ', $continent);
+   if (count($cont) == 3) {
+       $fantasy_anymals["$cont[0]"." $cont[1]"][] = "$animal". " $title[$n]";
+   }
+ else {
+       $fantasy_anymals[$cont[0]][] = "$animal". " $title[$n]";
+   }
+   $n = $n + 1;
 }
 foreach ($fantasy_anymals as $continent => $animals){
     echo "<h2>". "$continent". "</h2>";

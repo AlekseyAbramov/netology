@@ -53,9 +53,10 @@ print_r($new_a);
 $keys = array_keys($descript);
 shuffle($keys);
 $descript1 = [];
-foreach ($keys as $key) {   
-    $descript1[$key][] = $descript[$key][0];
-    $descript1[$key][] = $descript[$key][1];
+foreach ($keys as $key) {  
+    for ($i = 0; $i < count($descript[$key]); $i++) {
+    $descript1[$key][] = $descript[$key][$i];
+    }
 }
 
 shuffle($title);

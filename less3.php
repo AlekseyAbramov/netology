@@ -35,16 +35,14 @@ $a = [
 $new_a = [];
 $descript = [];
 $title = [];
-$i = 0;
 foreach ($a as $continent => $animals) {
     foreach ($animals as $animal) {
         $word_summ = str_word_count($animal);
         if ($word_summ == 2) {
-            $new_a["$continent"." $i"] = " $animal";
+            $new_a[$continent][] = $animal;
             $word = str_word_count($animal, 1);
-            $descript["$continent"." $i"] = "$word[0]";
+            $descript[$continent][] = $word[0];
             $title[] = $word[1];
-            $i = $i + 1;
         }
     }
 }
@@ -55,28 +53,24 @@ print_r($new_a);
 $keys = array_keys($descript);
 shuffle($keys);
 $descript1 = [];
-foreach ($keys as $key) {
-    $descript1[$key] = $descript[$key];
+foreach ($keys as $key) {   
+    $descript1[$key][] = $descript[$key][0];
+    $descript1[$key][] = $descript[$key][1];
 }
+
 shuffle($title);
 
 $fantasy_anymals = [];
 $n = 0;
-foreach ($descript1 as $continent => $animal) {
-   $cont = explode(' ', $continent);
-   if (count($cont) == 3) {
-       $fantasy_anymals["$cont[0]"." $cont[1]"][] = "$animal". " $title[$n]";
-   }
- else {
-       $fantasy_anymals[$cont[0]][] = "$animal". " $title[$n]";
-   }
-   $n = $n + 1;
+foreach ($descript1 as $continent => $animals) {
+    foreach ($animals as $animal) {
+        $fantasy_anymals[$continent][] = "$animal". " $title[$n]";
+        $n = $n + 1;
+    }
 }
 
 foreach ($fantasy_anymals as $continent => $animals){
+    $animal = implode(", ", $animals);
     echo "<h2>". "$continent". "</h2>";
-    for ($i = 0; $i < count($animals)-1; $i++) {
-        echo "$animals[$i],";
-    }
-    echo "$animals[$i]";
+    echo $animal;
 }

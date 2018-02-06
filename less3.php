@@ -50,23 +50,18 @@ foreach ($a as $continent => $animals) {
 echo '<pre>';
 print_r($new_a);
 
-$keys = array_keys($descript);
-shuffle($keys);
-$descript1 = [];
-foreach ($keys as $key) {  
-    for ($i = 0; $i < count($descript[$key]); $i++) {
-    $descript1[$key][] = $descript[$key][$i];
-    }
+foreach($descript as $key=>$value){
+    shuffle($value);
+    $descript1["$key"] = $value;
 }
 
 shuffle($title);
 
 $fantasy_anymals = [];
-$n = 0;
 foreach ($descript1 as $continent => $animals) {
     foreach ($animals as $animal) {
-        $fantasy_anymals[$continent][] = "$animal". " $title[$n]";
-        $n = $n + 1;
+        $anim = array_shift($title);
+        $fantasy_anymals[$continent][] = $animal. " ". $anim;
     }
 }
 

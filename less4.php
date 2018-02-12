@@ -12,10 +12,13 @@ $url = $url1. $q. '&'. $units. '&'. $lang. '&'. $appid;
 if (file_exists($file) && filemtime($file) < $time || !file_exists($file)){
     $open = file_get_contents($url);
     $current = file_put_contents($file, $open);
+    $json = json_decode($open);
+}
+ else {
+    $weather = file_get_contents($file);
+    $json = json_decode($weather);   
 }
 
-$weather = file_get_contents($file);
-$json = json_decode($weather);
 $name = $json->name;
 $temp = $json->main->temp;
 $pressure = $json->main->pressure;

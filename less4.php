@@ -9,7 +9,7 @@ $appid = 'APPID=f856e30cf2d2e0f1c7ef6d82b29cd68a';
 $lang = 'lang=ru';
 $url = $url1. $q. '&'. $units. '&'. $lang. '&'. $appid;
 
-if (filemtime($file) < $time){
+if (file_exists($file) && filemtime($file) < $time || !file_exists($file)){
     $open = file_get_contents($url);
     $current = file_put_contents($file, $open);
 }
